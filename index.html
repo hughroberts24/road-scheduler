@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Scheduler</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <h1>🚧 Road Scheduler</h1>
+                <div class="nav-controls">
+                    <button id="prevBtn" class="nav-btn">←</button>
+                    <span id="currentPeriod" class="current-period">February 2026</span>
+                    <button id="nextBtn" class="nav-btn">→</button>
+                    <button id="todayBtn" class="today-btn">Today</button>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="view-toggle">
+                    <button class="view-btn" data-view="monthly">Month</button>
+                    <button class="view-btn" data-view="weekly">Week</button>
+                    <button class="view-btn" data-view="gantt">Gantt</button>
+                </div>
+                <button id="manageCrewsBtn" class="manage-btn">👥 Crews</button>
+                <button id="addProjectBtn" class="add-btn">+ New Project</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="calendarContainer" class="calendar-container"></div>
+        </main>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="projectModalTitle">New Project</h2>
+                <button class="close-btn" onclick="closeProjectModal()">×</button>
+            </div>
+            <form id="projectForm">
+                <input type="hidden" id="projectId">
+                <div class="form-group">
+                    <label for="projectName">Project Name</label>
+                    <input type="text" id="projectName" required placeholder="e.g., Highway 101 Repaving">
+                </div>
+                <div class="form-group">
+                    <label for="projectLocation">Location</label>
+                    <input type="text" id="projectLocation" placeholder="e.g., Mile marker 45-52">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectStart">Start Date</label>
+                        <input type="date" id="projectStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectEnd">End Date</label>
+                        <input type="date" id="projectEnd" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="projectCrew">Assigned Crew</label>
+                    <select id="projectCrew" required>
+                        <option value="">Select a crew...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="projectNotes">Notes</label>
+                    <textarea id="projectNotes" rows="3" placeholder="Additional details..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeProjectModal()">Cancel</button>
+                    <button type="button" id="deleteProjectBtn" class="btn-danger" style="display:none;">Delete</button>
+                    <button type="submit" class="btn-primary">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Crew Management Modal -->
+    <div id="crewModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Manage Crews</h2>
+                <button class="close-btn" onclick="closeCrewModal()">×</button>
+            </div>
+            <div class="crew-management">
+                <div class="crew-list-panel">
+                    <div class="panel-header">
+                        <h3>Crews</h3>
+                        <button id="addCrewBtn" class="add-btn-small">+ Add</button>
+                    </div>
+                    <ul id="crewList" class="crew-list"></ul>
+                </div>
+                <div class="crew-detail-panel" id="crewDetailPanel">
+                    <div class="empty-state">Select a crew to edit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
